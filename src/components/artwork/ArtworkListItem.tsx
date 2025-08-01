@@ -18,7 +18,10 @@ export const ArtworkListItem = ({
             <img
               src={artwork.image}
               alt={artwork.title}
-              className="w-full mx-auto"
+              className="w-full mx-auto object-cover transition-transform hover:scale-105"
+              loading="lazy"
+              width={300}
+              height={300}
             />
           )}
         </div>

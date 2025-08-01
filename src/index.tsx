@@ -5,6 +5,7 @@ import { ArtworkList } from './components/artwork/ArtworkList'
 import { ArtworkDetail } from './components/artwork/ArtworkDetail'
 import { AboutPage } from './pages/AboutPage'
 import { ContactPage } from './pages/ContactPage'
+import { imageApp } from './image-handler'
 import { 
   loadPageData, 
   loadArtwork, 
@@ -15,6 +16,9 @@ import {
 } from './data'
 
 const app = new Hono()
+
+// Mount image optimization handler
+app.route('/', imageApp)
 
 app.use(jsxRenderer(({ children }) => {
   return <Layout>{children}</Layout>

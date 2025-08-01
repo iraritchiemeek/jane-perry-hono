@@ -21,6 +21,7 @@ export const ArtworkDetail = ({
               src={artwork.image}
               alt={artwork.title}
               className="object-top md:object-center object-contain w-full h-full"
+              loading="eager"
             />
           )}
         </div>
