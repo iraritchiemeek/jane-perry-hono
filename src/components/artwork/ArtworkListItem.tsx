@@ -1,5 +1,5 @@
 import type { Artwork, PageData } from "../../data";
-import { formatPrice, getImageUrl } from "../../data";
+import { ResponsiveImage } from "../ui/ResponsiveImage";
 
 export const ArtworkListItem = ({
   artwork,
@@ -15,13 +15,11 @@ export const ArtworkListItem = ({
       <a href={href}>
         <div>
           {artwork.image && (
-            <img
-              src={getImageUrl(artwork.image.file_name)}
+            <ResponsiveImage
+              fileName={artwork.image.file_name}
               alt={artwork.image.alt || artwork.title}
               className="w-full mx-auto"
-              loading="lazy"
-              width={300}
-              height={300}
+              variant="thumbnail"
             />
           )}
         </div>

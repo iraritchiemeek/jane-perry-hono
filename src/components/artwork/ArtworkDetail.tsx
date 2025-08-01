@@ -1,7 +1,8 @@
 import type { Artwork, PageData } from "../../data";
-import { getDimensionDetails, formatPrice, getImageUrl } from "../../data";
+import { getDimensionDetails, formatPrice } from "../../data";
 import { InfoItem } from "../ui/InfoItem";
 import { ArtworkListItem } from "./ArtworkListItem";
+import { ResponsiveImage } from "../ui/ResponsiveImage";
 
 export const ArtworkDetail = ({
   artwork,
@@ -17,18 +18,18 @@ export const ArtworkDetail = ({
       <div className="flex flex-col md:flex-row justify-center align-center md:h-[calc(100vh-95px)] pb-8 px-2 snap-y">
         <div className="relative w-full md:w-2/3 md:pb-0 aspect-[1/1] md:aspect-[16/9]">
           {artwork.image && (
-            <img
-              src={getImageUrl(artwork.image.file_name)}
+            <ResponsiveImage
+              fileName={artwork.image.file_name}
               alt={artwork.image.alt || artwork.title}
               className="object-top md:object-center object-contain w-full h-full"
-              loading="eager"
+              variant="detail"
             />
           )}
         </div>
         <div className="w-full h-full md:w-1/3 flex flex-col justify-center md:items-center pt-4 md:pt-0 snap-start">
           <div className="text-center md:text-left">
             <h1 className="text-3xl mb-8">{artwork.title}</h1>
-            <InfoItem title="Year" value={artwork.year.toString()} />
+            <InfoItem title="Year" value={artwork.year?.toString() || "Unknown"} />
             <InfoItem title="Size" value={getDimensionDetails(artwork)} />
             <InfoItem title="Medium" value={artwork.medium} />
             <InfoItem title="Price" value={formatPrice(artwork.price)} />

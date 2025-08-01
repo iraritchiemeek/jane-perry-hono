@@ -5,7 +5,6 @@ import { ArtworkList } from './components/artwork/ArtworkList'
 import { ArtworkDetail } from './components/artwork/ArtworkDetail'
 import { AboutPage } from './pages/AboutPage'
 import { ContactPage } from './pages/ContactPage'
-import { imageApp } from './image-handler'
 import { 
   loadPageData, 
   loadArtwork, 
@@ -15,10 +14,13 @@ import {
  
 } from './data'
 
-const app = new Hono()
+interface Env {
+  IMAGES: any
+  R2_IMAGES: R2Bucket
+}
 
-// Mount image optimization handler
-app.route('/', imageApp)
+const app = new Hono<{ Bindings: Env }>()
+
 
 app.use(jsxRenderer(({ children }) => {
   return <Layout>{children}</Layout>
