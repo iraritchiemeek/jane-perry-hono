@@ -16,7 +16,12 @@ export interface Artwork {
   framedDimensions: string | null
   framed: boolean
   price: number
-  image: string | null
+  image: {
+    file_name: string
+    alt: string
+    width: number
+    height: number
+  } | null
   display: boolean
   private: boolean
 }
@@ -26,6 +31,13 @@ export interface PageData {
   period?: string
   title: string
   artworks: Artwork[]
+}
+
+interface PageDataFile {
+  slug: string
+  period: string
+  title: string
+  artworks: number[]
 }
 
 export interface SiteData {
@@ -82,7 +94,19 @@ export function loadContactData(): ContactData {
 export function loadPageData(slug: string, period: string): PageData | null {
   const key = `${slug}-${period}` as keyof typeof pageDataMap
   const data = pageDataMap[key]
-  return data ? { ...data } : null
+  if (!data) return null
+  
+  // Load full artwork data from artworks.json using the ID references
+  const artworks = data.artworks
+    .map(artworkId => artworksData[artworkId.toString() as keyof typeof artworksData])
+    .filter((artwork): artwork is Artwork => artwork !== undefined)
+  
+  return {
+    slug: data.slug,
+    period: data.period,
+    title: data.title,
+    artworks
+  }
 }
 
 export function loadArtwork(id: string): Artwork | null {
@@ -95,10 +119,10 @@ export function loadAllArtworks(): Record<string, Artwork> {
 }
 
 const pageDataMap = {
-  'paintings-current': paintingsCurrentData as PageData,
-  'paintings-early': paintingsEarlyData as PageData,
-  'drawings-current': drawingsCurrentData as PageData,
-  'drawings-early': drawingsEarlyData as PageData,
+  'paintings-current': paintingsCurrentData as PageDataFile,
+  'paintings-early': paintingsEarlyData as PageDataFile,
+  'drawings-current': drawingsCurrentData as PageDataFile,
+  'drawings-early': drawingsEarlyData as PageDataFile,
 }
 
 export function getValidSlugs(): string[] {
@@ -132,4 +156,9 @@ export function getDimensionDetails(artwork: Artwork): string {
     result = `Image ${formatDimensions(artwork.dimensions)}\nUnframed`
   }
   return result
+}
+
+export function getImageUrl(fileName: string): string {
+  const baseUrl = 'https://pub-2d1102fe4474488abe8682f618a8222f.r2.dev'
+  return `${baseUrl}/${fileName}`
 }

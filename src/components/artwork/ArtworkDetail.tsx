@@ -1,5 +1,5 @@
 import type { Artwork, PageData } from "../../data";
-import { getDimensionDetails, formatPrice } from "../../data";
+import { getDimensionDetails, formatPrice, getImageUrl } from "../../data";
 import { InfoItem } from "../ui/InfoItem";
 import { ArtworkListItem } from "./ArtworkListItem";
 
@@ -18,8 +18,8 @@ export const ArtworkDetail = ({
         <div className="relative w-full md:w-2/3 md:pb-0 aspect-[1/1] md:aspect-[16/9]">
           {artwork.image && (
             <img
-              src={artwork.image}
-              alt={artwork.title}
+              src={getImageUrl(artwork.image.file_name)}
+              alt={artwork.image.alt || artwork.title}
               className="object-top md:object-center object-contain w-full h-full"
               loading="eager"
             />

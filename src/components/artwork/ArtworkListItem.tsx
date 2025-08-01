@@ -1,5 +1,5 @@
 import type { Artwork, PageData } from "../../data";
-import { formatPrice } from "../../data";
+import { formatPrice, getImageUrl } from "../../data";
 
 export const ArtworkListItem = ({
   artwork,
@@ -16,9 +16,9 @@ export const ArtworkListItem = ({
         <div>
           {artwork.image && (
             <img
-              src={artwork.image}
-              alt={artwork.title}
-              className="w-full mx-auto object-cover transition-transform hover:scale-105"
+              src={getImageUrl(artwork.image.file_name)}
+              alt={artwork.image.alt || artwork.title}
+              className="w-full mx-auto"
               loading="lazy"
               width={300}
               height={300}
