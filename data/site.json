@@ -1,0 +1,29 @@
+{
+  "title": "Jane Perry",
+  "description": "Independent Wellington artist known for her elegant, graphic and lively work.",
+  "navigation": [
+    {
+      "name": "Paintings",
+      "href": "/"
+    },
+    {
+      "name": "Drawings",
+      "href": "/drawings/current"
+    },
+    {
+      "name": "About",
+      "href": "/about"
+    },
+    {
+      "name": "Contact",
+      "href": "/contact"
+    }
+  ],
+  "footer": {
+    "email": "perryjane@orcon.net.nz",
+    "instagram": {
+      "url": "https://www.instagram.com/janeperryartist",
+      "icon": "Instagram_Glyph_Black.svg"
+    }
+  }
+}
